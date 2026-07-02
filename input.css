@@ -350,7 +350,8 @@
   .hero-ambience::after,
   .hero-float-card,
   .hero-benefit,
-  .character-animation {
+  .character-animation,
+  .frame {
     animation: none !important;
   }
 
@@ -545,6 +546,7 @@
 
 .s2-image,
 .s3-image {
+  margin-top: 1.5rem;
   border-radius: 5%;
   width: 100%;
   max-width: 340px;
@@ -681,6 +683,11 @@
   aspect-ratio: 1 / 1;
   height: auto;
   z-index: 1;
+  /* Tarjeta blanca limpia en ambos temas (igual que el modo oscuro). */
+  background: #ffffff;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(81, 30, 0, 0.14);
   /* Animación por movimiento (flotación), sin cambiar de frame → sin parpadeo. */
   animation: floatCharacter 5.5s ease-in-out infinite;
 }
@@ -695,40 +702,48 @@
   }
 }
 
-/* Halo suave que asienta al personaje sobre un "escenario" */
-.character-animation::before {
-  content: "";
-  position: absolute;
-  inset: 4% 2% 0;
-  z-index: -1;
-  border-radius: 46% 54% 52% 48% / 55% 45% 55% 45%;
-  background:
-    radial-gradient(circle at 50% 42%, rgba(243, 131, 19, 0.16), transparent 60%),
-    radial-gradient(circle at 50% 82%, rgba(81, 30, 0, 0.08), transparent 62%);
-  filter: blur(6px);
-}
-
-/* En modo oscuro el personaje (negro) necesita un fondo claro para verse:
-   se usa la misma animación light sobre una "tarjeta" blanca redondeada. */
+/* En modo oscuro la tarjeta usa una sombra más marcada para separarse del fondo. */
 .theme-dark .character-animation {
-  background: #ffffff;
-  border-radius: 28px;
-  overflow: hidden;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.38);
 }
 
-.theme-dark .character-animation::before {
-  display: none;
-}
-
-/* Personaje estático (sin parpadeo): un único frame de ojos abiertos. */
+/* Personaje animado: los 3 frames se apilan y se muestran por turnos
+   (icon → icon2 → icon3) para dar la sensación de movimiento. */
 .frame {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: contain;
+  opacity: 0;
+  will-change: opacity;
+  animation: characterFrames 1.2s steps(1, end) infinite;
+}
+
+/* Cada frame es visible en su tercio del ciclo; los delays negativos
+   escalonan el orden sin esperar a que arranque la animación. */
+.frame1 {
   opacity: 1;
+  animation-delay: -0.2s;
+}
+
+.frame2 {
+  animation-delay: -0.6s;
+}
+
+.frame3 {
+  animation-delay: -1s;
+}
+
+@keyframes characterFrames {
+  0%,
+  33.333% {
+    opacity: 1;
+  }
+  33.334%,
+  100% {
+    opacity: 0;
+  }
 }
 
 /* ─── Ajustes responsive del hero ─────────────────────────────────────────── */
