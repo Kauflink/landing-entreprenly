@@ -197,5 +197,8 @@
 
   "heroCards.inventory": "Inventario en tiempo real",
   "heroCards.orders": "Pedidos por WhatsApp",
-  "heroCards.finance": "Control financiero"
+  "heroCards.finance": "Control financiero",
+  "heroCards.alerts": "Alertas de stock",
+  "heroCards.cash": "Caja diaria",
+  "heroCards.reports": "Reportes claros"
 }

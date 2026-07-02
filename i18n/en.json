@@ -197,7 +197,10 @@
 
   "heroCards.inventory": "Real-time inventory",
   "heroCards.orders": "WhatsApp Orders",
-  "heroCards.finance": "Financial Control"
+  "heroCards.finance": "Financial Control",
+  "heroCards.alerts": "Stock alerts",
+  "heroCards.cash": "Daily cash",
+  "heroCards.reports": "Clear reports"
 }
 
 
